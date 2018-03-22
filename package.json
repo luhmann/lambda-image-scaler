@@ -1,0 +1,25 @@
+{
+  "name": "lambda-image-scaler",
+  "version": "0.0.1",
+  "description": "A serverless image scaler",
+  "main": "src/index.js",
+  "repository": "git@github.com:luhmann/lambda-image-scaler.git",
+  "author": "Jan Florian Dietrich <luhmann@users.noreply.github.com>",
+  "license": "MIT",
+  "scripts": {
+    "start":
+      "claudia create --name punk-api-scaler --region eu-central-1 --version dev --api-module src/scaler",
+    "deploy": "claudia update --version dev",
+    "release": "claudia set-version --version production",
+    "build":
+      "docker run -e AWS_SECRET_ACCESS_KEY='aMeFFT2OVR1b20Y5iZVZgR2hfJmeBnGnImXlqa49' -e AWS_ACCESS_KEY_ID='AKIAJLRPGNHGPKSMV4AQ' -v /Users/jfd/dev/lambda-image-scaler:/var/task lambci/lambda:build-nodejs6.10 ./node_modules/.bin/claudia update --version dev --use-local-dependencies"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.212.1",
+    "claudia-api-builder": "^3.0.2",
+    "sharp": "^0.20.1"
+  },
+  "devDependencies": {
+    "claudia": "^3.3.1"
+  }
+}
