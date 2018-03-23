@@ -1,0 +1,11 @@
+{
+  "lambda": {
+    "role": "punk-api-scaler-executor",
+    "name": "punk-api-scaler",
+    "region": "eu-central-1"
+  },
+  "api": {
+    "id": "mqkh8uwd9g",
+    "module": "src/scaler"
+  }
+}

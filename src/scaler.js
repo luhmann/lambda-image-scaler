@@ -6,18 +6,18 @@ const s3 = new AWS.S3({
 });
 const sharp = require('sharp');
 
-const BUCKET = 'punk-api-images';
-const ALLOWED_SIZES = new Set([160]);
+const BUCKET = 'image-scaler';
+const ALLOWED_SIZES = new Set([160, 495, 768, 1200, 1600, 1920]);
 
 const SRC_PATH = 'source';
-const RESIZED_PATH = 'scaler';
+const RESIZED_PATH = 'resized';
 
 const api = new API();
 
 const isAllowedSize = width => ALLOWED_SIZES.has(parseInt(width, 10));
 
-const getRenamedFilename = filename =>
-  `${RESIZED_PATH}/${path.basename(filename, '.png')}.jpg`;
+const getRenamedFilename = (size, filename) =>
+  `${RESIZED_PATH}/${size}_${path.basename(filename)}`;
 
 api.get('{width}/{imagePath}', request => {
   if (!isAllowedSize(request.pathParams.width)) {
@@ -31,6 +31,7 @@ api.get('{width}/{imagePath}', request => {
     })
     .promise()
     .then(data => {
+      console.log('received source image');
       return sharp(data.Body)
         .resize(parseInt(request.pathParams.width))
         .background({ r: 255, g: 255, b: 255, alpha: 1 })
@@ -38,21 +39,31 @@ api.get('{width}/{imagePath}', request => {
         .jpeg({ quality: 60, progressive: true })
         .toBuffer();
     })
-    .then(buffer =>
-      s3
+    .then(buffer => {
+      console.log('transformed image');
+      return s3
         .putObject({
           Body: buffer,
           Bucket: BUCKET,
           ContentType: 'image/jpeg',
-          Key: `${getRenamedFilename(request.pathParams.imagePath)}`,
+          Key: `${getRenamedFilename(
+            request.pathParams.width,
+            request.pathParams.imagePath
+          )}`,
+          ACL: 'public-read',
         })
         .promise()
-    )
+        .catch(err => {
+          console.log('error in saving resized image', err);
+          throw err;
+        });
+    })
     .then(() => {
       return new api.ApiResponse(
         '',
         {
-          location: `https://s3.eu-central-1.amazonaws.com/punk-api-images/${getRenamedFilename(
+          location: `https://s3.eu-central-1.amazonaws.com/${BUCKET}/${getRenamedFilename(
+            request.pathParams.width,
             request.pathParams.imagePath
           )}`,
         },
