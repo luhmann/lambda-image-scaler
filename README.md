@@ -1,12 +1,21 @@
 # lambda-image-scaler
 
+*   Implementation with claudia.js
+*   ...and api
+
+## Roadblocks
+
+### Dependencies
+
 `sharp` needs to be installed in docker container in order to have the correct binaries for the AWS lambda environment:
 
 ```
 docker run -e AWS_SECRET_ACCESS_KEY='<SECRET_ACCESS_KEY>' -e AWS_ACCESS_KEY_ID='<ACCESS_KEY_ID>' -v /Users/jfd/dev/lambda-image-scaler:/var/task lambci/lambda:build-nodejs6.10 ./node_modules/.bin/claudia update --version dev --use-local-dependencies
 ```
 
-## Bucket Policy to set on the s3 bucket
+### Permissions
+
+#### Bucket Policy to set on the s3 bucket
 
 *   The `principal` must be the role that claudia created for you in IAM
 *   The `resource` must be the arn of the bucket with `/*` in the end to allow access to objects
@@ -30,3 +39,11 @@ docker run -e AWS_SECRET_ACCESS_KEY='<SECRET_ACCESS_KEY>' -e AWS_ACCESS_KEY_ID='
     ]
 }
 ```
+
+### Binary Response Types
+
+*   Solved by redirect
+
+### Scalability
+
+*   Much undersized
