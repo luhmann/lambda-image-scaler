@@ -7,7 +7,7 @@ const s3 = new AWS.S3({
 const sharp = require('sharp');
 
 const BUCKET = 'image-scaler';
-const ALLOWED_SIZES = new Set([160, 495, 768, 1200, 1600, 1920]);
+const ALLOWED_SIZES = new Set([160, 495, 768, 1200, 1600, 1920, 2560]);
 
 const SRC_PATH = 'source';
 const RESIZED_PATH = 'resized';
