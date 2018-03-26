@@ -36,7 +36,7 @@
 
 ## Demo
 
-*   https://qbu6gezys2.execute-api.eu-central-1.amazonaws.com/dev/1600/100.jpg
+https://qbu6gezys2.execute-api.eu-central-1.amazonaws.com/dev/1600/100.jpg
 
 ## Roadblocks
 
