@@ -1,7 +1,41 @@
 # lambda-image-scaler
 
-*   Implementation with claudia.js
-*   ...and api
+## Problem
+
+Responsive images
+
+*   source-images are huge
+*   need to be different for a whole range of devices and viewports
+*   is an interesting problem to be solved by serverless
+
+    *   very common task in all content-heavy frontend-pages
+    *   overkill to have a whole server-architecture in place for a rather simple task
+    *   lots of tutorials
+    *   interesting because of more advanced hardware-requirements and the potential need of C-based libraries
+
+*   Implementation with claudia.js, lightweight AWS framework, seemed more approachable than something like `serverless`
+*   ...and `claudia-api-builder`
+*   what it does for you is
+    *   creating the necessary roles to execute the function, every lambda-function is run with some role and shares the same permissions as that role, which makes permission handling rather easy but not straightforward
+    *   creates the function for you,
+        *   handles uploading,
+        *   versioning and
+        *   managing different stages for your function, eg. dev, stage, test,
+        *   allows you to manage resources for the function
+    *   and with claudia-api-builder it creates `API Gateway` configs for you that make parameter-handling in your functions more straightforward
+
+## Implementation
+
+*   Source Images in S3
+*   One image-transformation as url-paramater configured in API Gateway
+*   Lookup if transformed images exist
+*   if not do the transformation
+*   save the resized image in another s3 bucket
+*   301 redirect to a different url
+
+## Demo
+
+*   https://qbu6gezys2.execute-api.eu-central-1.amazonaws.com/dev/1600/100
 
 ## Roadblocks
 
@@ -42,8 +76,20 @@ docker run -e AWS_SECRET_ACCESS_KEY='<SECRET_ACCESS_KEY>' -e AWS_ACCESS_KEY_ID='
 
 ### Binary Response Types
 
-*   Solved by redirect
+#### Problem
+
+> Similarly, although the documentation suggests that multiple content types can be specified in the Accept header for binary responses, it seems that this breaks the conversion. This makes the current implementation useless for browsers, which by default request complex Accept headers. This means that it’s currently not possible to use the API Gateway/AWS_PROXY integration to return images that can be just included into a web page using the img tag. [ref](https://claudiajs.com/tutorials/binary-content.html)
+
+#### Solution
+
+*   For now solved by redirect
 
 ### Scalability
 
 *   Much undersized
+
+### Further Development
+
+*   Better Code
+*   Create scaled images whenever an image is added to the source-bucket, which is supposed to be easy if you hook the function up to s3-events
+*   Try to get rid of the redirect
