@@ -2,7 +2,7 @@
 
 ## Problem
 
-Responsive images
+**Responsive images**
 
 *   source-images are huge, but not available at build-time
 *   need to be different for a whole range of devices and viewports
