@@ -1,4 +1,4 @@
-# 🕴 lambda-image-scaler
+# 🥒 Lambda Image Scaler
 
 ## Problem
 
