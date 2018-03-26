@@ -36,7 +36,17 @@
 
 ## Demo
 
-https://qbu6gezys2.execute-api.eu-central-1.amazonaws.com/dev/1600/100.jpg
+~~https://qbu6gezys2.execute-api.eu-central-1.amazonaws.com/dev/1600/100.jpg~~ (taken offline, spin up your own if you like)
+
+## Setup
+
+### AWS API Access
+
+Create a user with these permission:
+
+*   `AWSLambdaFullAccess`
+*   `IAMFullAccess`
+*   `AmazonAPIGatewayAdministrator`
 
 ## Roadblocks
 
@@ -46,7 +56,7 @@ The newest node version currently (2018-03) supported by AWS Lambda is `6.10.*`
 
 ### Dependencies
 
-`sharp` needs to be installed in docker container in order to have the correct binaries for the AWS lambda environment:
+`sharp` needs to be installed in docker container in order to have the correct binaries for the AWS lambda environment. It is usually best to just run all claudia operations in that container to not run into any issues with claudia checking the correctly bundled dependencies:
 
 ```
 docker run -e AWS_SECRET_ACCESS_KEY='<SECRET_ACCESS_KEY>' -e AWS_ACCESS_KEY_ID='<ACCESS-KEY>' -v "$PWD":/var/task lambci/lambda:build-nodejs6.10 ./node_modules/.bin/claudia create --name punk-api-scaler --region eu-central-1 --version dev --api-module src/scaler --timeout 10 --memory 1536
