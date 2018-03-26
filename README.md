@@ -58,21 +58,20 @@ docker run -e AWS_SECRET_ACCESS_KEY='<SECRET_ACCESS_KEY>' -e AWS_ACCESS_KEY_ID='
 
 *   The `principal` must be the role that claudia created for you in IAM
 *   The `resource` must be the arn of the bucket with `/*` in the end to allow access to objects
+*   can be created with the [policy generator](http://awspolicygen.s3.amazonaws.com/policygen.html)
 
 ```json
 {
-    "Id": "Policy1521800101848",
+    "Id": "<some-id>",
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Sid": "Stmt1521800097305",
+            "Sid": "<some-sid>",
             "Action": "s3:*",
             "Effect": "Allow",
-            "Resource": "arn:aws:s3:::image-scaler/*",
+            "Resource": "arn:aws:s3:::<bucket-name>/*",
             "Principal": {
-                "AWS": [
-                    "arn:aws:iam::774843948343:role/punk-api-scaler-executor"
-                ]
+                "AWS": ["<executor-role-defined-by-claudia>"]
             }
         }
     ]
