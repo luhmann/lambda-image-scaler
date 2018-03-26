@@ -15,6 +15,7 @@ Responsive images
 
 *   Implementation with claudia.js, lightweight AWS framework, seemed more approachable than something like `serverless`
 *   ...and `claudia-api-builder`
+*   `sharp` as the library that handles the heavy-lifting for us
 *   what it does for you is
     *   creating the necessary roles to execute the function, every lambda-function is run with some role and shares the same permissions as that role, which makes permission handling rather easy but not straightforward
     *   creates the function for you,
@@ -93,3 +94,6 @@ docker run -e AWS_SECRET_ACCESS_KEY='<SECRET_ACCESS_KEY>' -e AWS_ACCESS_KEY_ID='
 *   Better Code
 *   Create scaled images whenever an image is added to the source-bucket, which is supposed to be easy if you hook the function up to s3-events
 *   Try to get rid of the redirect
+*   More Transformations
+*   More MIME-Types (the day they want the animated gif)
+*   Fancy stuff (yo crop to the face)
