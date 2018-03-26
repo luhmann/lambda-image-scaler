@@ -1,10 +1,10 @@
-# lambda-image-scaler
+# 🕴 lambda-image-scaler
 
 ## Problem
 
 Responsive images
 
-*   source-images are huge
+*   source-images are huge, but not available at build-time
 *   need to be different for a whole range of devices and viewports
 *   is an interesting problem to be solved by serverless
 
@@ -95,7 +95,7 @@ docker run -e AWS_SECRET_ACCESS_KEY='<SECRET_ACCESS_KEY>' -e AWS_ACCESS_KEY_ID='
 
 ### Further Development
 
-*   Better Code
+*   Better Code (Modern JS, TS, tests)
 *   Create scaled images whenever an image is added to the source-bucket, which is supposed to be easy if you hook the function up to s3-events
 *   Try to get rid of the redirect
 *   More Transformations
