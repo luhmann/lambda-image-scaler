@@ -10,9 +10,7 @@
     "start":
       "claudia create --name punk-api-scaler --region eu-central-1 --version dev --api-module src/scaler",
     "deploy": "claudia update --version dev",
-    "release": "claudia set-version --version production",
-    "build":
-      "docker run -e AWS_SECRET_ACCESS_KEY='aMeFFT2OVR1b20Y5iZVZgR2hfJmeBnGnImXlqa49' -e AWS_ACCESS_KEY_ID='AKIAJLRPGNHGPKSMV4AQ' -v /Users/jfd/dev/lambda-image-scaler:/var/task lambci/lambda:build-nodejs6.10 ./node_modules/.bin/claudia update --version dev --use-local-dependencies"
+    "release": "claudia set-version --version production"
   },
   "dependencies": {
     "aws-sdk": "^2.212.1",
