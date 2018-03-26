@@ -40,6 +40,10 @@
 
 ## Roadblocks
 
+### Supported Node Version
+
+The newest node version currently (2018-03) supported by AWS Lambda is `6.10.*`
+
 ### Dependencies
 
 `sharp` needs to be installed in docker container in order to have the correct binaries for the AWS lambda environment:
